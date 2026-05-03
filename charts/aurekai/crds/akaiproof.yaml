@@ -1,0 +1,56 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: akaiproofs.aurekai.io
+spec:
+  group: aurekai.io
+  versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              required: ["artifactId"]
+              properties:
+                artifactId:
+                  type: string
+                runId:
+                  type: string
+                canonHash:
+                  type: string
+                proofUri:
+                  type: string
+                labels:
+                  type: object
+                  additionalProperties:
+                    type: string
+            status:
+              type: object
+              properties:
+                verified:
+                  type: boolean
+                verifiedAt:
+                  type: string
+                  format: date-time
+                error:
+                  type: string
+      additionalPrinterColumns:
+        - name: ArtifactID
+          type: string
+          jsonPath: .spec.artifactId
+        - name: Verified
+          type: boolean
+          jsonPath: .status.verified
+        - name: ProofURI
+          type: string
+          jsonPath: .spec.proofUri
+  scope: Namespaced
+  names:
+    plural: akaiproofs
+    singular: akaiproof
+    kind: AkaiProof
+    shortNames: ["apf"]

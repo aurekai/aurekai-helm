@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: "{{ .Release.Name }}-pre-install-doctor"
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-weight": "-10"
+    "helm.sh/hook-delete-policy": hook-succeeded
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: akai-doctor
+          image: "{{ .Values.akai.image | default "ghcr.io/aurekai/akai:latest" }}"
+          command: ["akai", "doctor", "--deep", "--json"]
+          env:
+            - name: AKAI_LOG_LEVEL
+              value: "info"
