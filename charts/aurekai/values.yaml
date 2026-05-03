@@ -1,0 +1,17 @@
+image:
+  repository: ghcr.io/aurekai/aurekai
+  tag: "0.8.0-alpha.4"
+  pullPolicy: IfNotPresent
+
+aurekai:
+  version: "0.8.0-alpha.4"
+  manifestSchema: "aurekai.deploy.v1"
+
+jobs:
+  doctorDeep:
+    enabled: true
+  manifestVerify:
+    enabled: true
+  releaseGate:
+    enabled: true
+    version: "0.8.0-alpha.4"

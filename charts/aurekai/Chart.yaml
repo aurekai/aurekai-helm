@@ -1,0 +1,13 @@
+apiVersion: v2
+name: aurekai
+description: Aurekai core pipeline Helm chart
+type: application
+version: 0.8.1
+appVersion: "0.8.0-alpha.4"
+keywords:
+  - aurekai
+  - ai
+  - pipeline
+home: https://github.com/aurekai/aurekai
+sources:
+  - https://github.com/aurekai/aurekai-helm

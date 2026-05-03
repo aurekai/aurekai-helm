@@ -1,0 +1,17 @@
+{{- if .Values.jobs.releaseGate.enabled }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "aurekai.fullname" . }}-release-gate
+  labels:
+    {{- include "aurekai.labels" . | nindent 4 }}
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: akai
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          command: ["/bin/sh", "-c"]
+          args: ["akai release gate --version {{ .Values.jobs.releaseGate.version }} --json"]
+{{- end }}

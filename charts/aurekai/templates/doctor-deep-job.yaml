@@ -1,0 +1,20 @@
+{{- if .Values.jobs.doctorDeep.enabled }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "aurekai.fullname" . }}-doctor-deep
+  labels:
+    {{- include "aurekai.labels" . | nindent 4 }}
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: akai
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          command: ["/bin/sh", "-c"]
+          args: ["akai doctor --deep --json"]
+          env:
+            - name: AUREKAI_VERSION
+              value: {{ .Values.aurekai.version | quote }}
+{{- end }}
