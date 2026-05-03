@@ -6,7 +6,7 @@
 
 Aurekai integration surface for Helm.
 
-Status: planned
+Status: active
 Type: infra
 
 ## Core Template Set
